@@ -1,6 +1,6 @@
 {
   "name": "gaggle",
-  "version": "2.1.4",
+  "version": "2.2.0",
   "description": "A distributed log",
   "main": "lib/factory",
   "directories": {
