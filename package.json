@@ -11,8 +11,7 @@
     "coverage": "tap test/**/*.js --reporter=spec --coverage --coverage-report=html && open -a \"Safari\" coverage/index.html",
     "test-ci": "tap test/**/*.js --reporter=spec --statements=100",
     "tdd": "nodemon -x npm test",
-    "doctoc": "doctoc README.md",
-    "prepublish": "in-publish && npm run doctoc || not-in-publish"
+    "doctoc": "doctoc README.md"
   },
   "repository": {
     "type": "git",
@@ -36,7 +35,6 @@
   },
   "dependencies": {
     "bluebird": "^3.5.1",
-    "in-publish": "^2.0.0",
     "joi": "^13.1.1",
     "lodash": "^4.17.4",
     "once": "^1.4.0",
