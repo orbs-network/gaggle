@@ -2,11 +2,9 @@ var t = require('tap')
   , uuid = require('uuid')
   , _ = require('lodash')
   , http = require('http')
-  , serverEnhancer = require('../../../lib/socket-io-server-enhancer')
   , RANDOM_HIGH_PORT = _.random(9000, 65535)
   , InMemoryChannel = require('../../../channels/in-memory-channel')
   , RedisChannel = require('../../../channels/redis-channel')
-  , SocketIOChannel = require('../../../channels/socket-io-channel')
   , channelsToTest = {
       InMemory: {
         create: function createInMemoryChannel () {
@@ -20,35 +18,6 @@ var t = require('tap')
             id: uuid.v4()
           , channelOptions: {
               channelName: 'channelIntegrationTestChannel'
-            }
-          })
-        }
-      , cls: RedisChannel
-      }
-    , SocketIO: {
-        setup: function setupSocketIOServer (cb) {
-          var noop = function noop (req, resp) {
-                resp.writeHead(200)
-                resp.end()
-              }
-            , server = http.createServer(noop)
-            , closeServer
-
-          closeServer = serverEnhancer(server)
-
-          server.listen(RANDOM_HIGH_PORT, function () {
-            cb(function exposedTeardownCb (teardownCb) {
-              server.once('close', teardownCb)
-              closeServer()
-            })
-          })
-        }
-      , create: function createSocketIOChannel () {
-          return new SocketIOChannel({
-            id: uuid.v4()
-          , channelOptions: {
-              host: 'http://127.0.0.1:' + RANDOM_HIGH_PORT
-            , channel: 'gaggle'
             }
           })
         }
