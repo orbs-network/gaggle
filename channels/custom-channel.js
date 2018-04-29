@@ -38,7 +38,7 @@ CustomChannel.prototype._connect = function _connect() {
 }
 
 CustomChannel.prototype._disconnect = function _disconnect() {
-  this._connector._disconnect();
+  this._connector.disconnect();
   this._disconnected()
 }
 
